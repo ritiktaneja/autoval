@@ -1,0 +1,3 @@
+KLEE: Using STP solver backend
+KLEE: ERROR: temp.c:45: ASSERTION FAIL: return_value_1 == return_value_2
+KLEE: NOTE: now ignoring this error at this location

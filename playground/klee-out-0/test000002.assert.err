@@ -1,0 +1,6 @@
+Error: ASSERTION FAIL: return_value_1 == return_value_2
+File: temp.c
+Line: 45
+assembly.ll line: 144
+Stack: 
+	#000000144 in main () at temp.c:45
