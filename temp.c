@@ -1,37 +1,55 @@
-// File1 : 604.c File2 : 3465.c
+// File1 : 24098.c File2 : 1448.c
 #include<stdio.h>
 #include<stdlib.h>
 #include<assert.h>
 #include<string.h>
 
+
 int digitSum1(int n)
 {
-	if (n <= 9)
-		return n;
-	int sum = 0;
-	while (n > 0)
-	{
-		sum = sum + (n % 10);
-		n = n / 10;
+	//Write solution here
+	if(n < 10){
+	    return n;
 	}
-	return digitSum1(sum);
+	
+	else{
+	    
+	    if(n%10+ digitSum1(n/10) > 9){
+	       return digitSum1(n%10 + digitSum1(n/10));
+	    }
+		
+		else if(n%10+ digitSum1(n/10) <= 9){
+	        return n%10 + digitSum1(n/10);
+	    }
+	}
+
+
 }
+
 
 
 
 int digitSum2(int n)
 {
-	//Write solution here
-	if (!n)return 0;
-    return (!(n % 9)) ? 9 : (n % 9);
+	if(n<=9){
+		return n;
+	}
+	else{
+		if(n%9==0){
+			return 9;
+		}
+		return n%9;
+	}
 }
 
 
-int main()
+int nondet_int();
+
+ int main()
 {
-	int input_a;
-	klee_make_symbolic(&input_a,sizeof(input_a),"input_a");
-	klee_assume(input_a > 0); 
+	int input_a = nondet_int();
+
+	 __CPROVER_assume(input_a>0);
 	int return_value_1 = digitSum1(input_a);
 	int return_value_2 = digitSum2(input_a);
 

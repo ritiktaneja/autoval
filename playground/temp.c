@@ -4,35 +4,39 @@
 #include<assert.h>
 #include<string.h>
 
-int digitSum1(int n)
-{
-	if(n<10){
-		return n;
+int digitSum1(int n){
+	int digit, sum;
+	while(n>=10){
+		sum = 0;
+		while(n>0){
+			digit = n%10;
+			sum += digit;
+			n = n/10;
+		}
+		n = sum;
 	}
-	int temp=0;
-	while(n>0){
-		temp+=(n%10);
-		n/=10;
-	}
-	return digitSum1(temp);
+	return sum;
 }
-
 
 int digitSum2(int n)
 {
-	if(n/10==0) return n;
-	else{
-		int sum =0;
-		int x = n;
-		while (x>0)
+	//Write solution here
+	int curr_tot;
+	int tmp;
+	while (n >= 10)
+	{
+		/* code */
+		tmp = n;
+		curr_tot = 0;
+		while (tmp>0)
 		{
-			sum+=x%10;
-			x/=10;
+			curr_tot+=(tmp%10);
+			tmp/=10;
 		}
-		digitSum2(sum);
+		n = curr_tot;
 	}
+	return curr_tot;
 }
-
 
 int main()
 {

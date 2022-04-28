@@ -1,3 +1,4 @@
+#include<stdio.h>
 int digitsum(int n){
     if(n>=10){
         int temp=0;
@@ -10,3 +11,8 @@ int digitsum(int n){
     else return n;
 }
 
+int main()
+{
+   int x= digitsum(45);
+   printf("%d",x);
+}

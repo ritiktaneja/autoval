@@ -8,7 +8,7 @@ int digitSum(int n)
             n/=10;
         }
 
-        return digitsum(temp);
+        return digitSum(temp);
     }
     else return n;
 }

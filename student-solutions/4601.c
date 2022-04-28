@@ -1,6 +1,6 @@
 
 
-int digitsum(int n){
+int digitSum(int n){
 	if(n < 10 && n >= 0){
 		return n;
 	}
@@ -10,7 +10,7 @@ int digitsum(int n){
             sum += (n%10);
             n/=10;
         }
-        return digitsum(sum);
+        return digitSum(sum);
     }
     
 }

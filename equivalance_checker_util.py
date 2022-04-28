@@ -10,9 +10,9 @@ from config import general as gen_config
 
 class equivalance_checker_util():
 
-    def __init__(self):
-        self.function_name = gen_config.solution_function_name
-        self.function_type = gen_config.solution_function_type
+    def __init__(self,function_name,function_type):
+        self.function_name = function_name
+        self.function_type = function_type
         self.filename = "temp.c"
         self.scalar_args_fp = os.path.abspath("./config/scalar_args.txt")
 
@@ -29,7 +29,7 @@ class equivalance_checker_util():
             solution1 = re.sub(self.function_name,self.function_name+"1",solution1,count=0)
             solution2 = re.sub(self.function_name,self.function_name+"2",solution2,count=0)
 
-            main_method = self.build_main(self.function_type,self.function_name+"1",self.function_name+"2")
+            main_method = self.build_klee_main(self.function_type,self.function_name+"1",self.function_name+"2")
             
             os.system("rm -f "+filename)
             temp_file = open(filename,"a+")
@@ -46,7 +46,7 @@ class equivalance_checker_util():
             os.chdir(cwd)
 
 
-    def build_main(self,function_type,function1_name,function2_name)-> string:
+    def build_klee_main(self,function_type,function1_name,function2_name)-> string:
             main_method = "int main()\n{\n\t"
 
             scalar_arguments_dict = self.get_scalar_argument_list()

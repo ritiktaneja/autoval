@@ -1,11 +1,21 @@
-#include<assert.h>
-#include<stdio.h>
-int get_sign(int x,int y) {
- 
-  if(x==0)
-    return 0;
-  else if(x>0)
-    return x;
-  return x;
+int digitSum(int n)
+{
+	//Write solution here
+	int sum = 0;
+	int cond = 1;
 
+    while(cond == 1){
+		if(n > 0 || sum > 9){
+			cond = 0;
+			break;
+		}
+      if(n == 0){
+          n = sum;
+          sum = 0;
+      }
+
+      sum += (n % 10);
+      n /= 10;
+  }
+	return sum;
 }
