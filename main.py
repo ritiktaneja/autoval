@@ -1,9 +1,10 @@
 
 
-from datetime import datetime
-from genericpath import isdir
+from ast import Pass
+from datetime import date, datetime
+from genericpath import isdir, isfile
 import os,sys
-from random import randint
+import random
 from cbmc import Cbmc,CbmcResponses
 from config.bcolors import bcolors
 import config.general as general
@@ -11,9 +12,12 @@ from klee import Klee,KleeResponses
 from testcases_util import testcases_util
 import util_tools as ut
 
+import pandas as pd
+
+
 from c import c
 
-import signal
+import re
 
 from ctypes import *
 
@@ -27,9 +31,12 @@ solutions_dir = os.path.join(os.getcwd(),general.solutions_dir)
 cluster_dir = os.path.join(os.getcwd(),general.cluster_dir)
 error_dir = os.path.join(os.getcwd(),general.error_dir)
 testcases_file = os.path.join(os.getcwd(),general.testcases_file)
+output_dir = os.path.abspath(general.output_dir)
 solution_function_name = general.solution_function_name
 solution_function_type = general.solution_function_type
 klee_max_time = general.klee_max_time
+
+random.seed(42)
 
 mutants_dir = os.path.join(os.getcwd(),general.mutants_dir)
 
@@ -39,56 +46,62 @@ cluster_cnt = 1
 def signal_handler(signum, frame):
     raise Exception("Timed out!")
 
+def cleanMutants(mutants_dir):
+    cwd = os.getcwd()
+    mutants_list = os.listdir(mutants_dir)
+    os.chdir(output_dir)
+    toRemove = []
+    for mutant_name in mutants_list:
+        mutant = os.path.join(mutants_dir,mutant_name)
+        os.system("clang -emit-llvm  -c "+mutant+" -o temp.bc 2> temp.txt")
+        output = open("temp.txt","r").read()
+        if len(re.findall(r": error:",output)) != 0 or not isfile("temp.bc"):
+            toRemove.append(mutant)
+
+    os.chdir(cwd)
+    print(" Removing : ",toRemove)
+    for mutant in toRemove:
+        os.system("rm "+mutant)
 
 
-def map_mutants():
+
+def map_mutants(cluster_dir):
 
     print("Mapping mutants...")
     print("Current working directory : ",os.getcwd())
+    cluster_dir = os.path.join(os.getcwd(),cluster_dir)
     result = dict()
    
     if isdir(mutants_dir) == False:
         print("Mutant directory not found")
         return
     
+    cleanMutants(mutants_dir)
+
     if isdir(cluster_dir) == False:
         print("Cluster directory not found")
         return
-    
+
     for mutant_name in os.listdir(mutants_dir):
-        
         mutant = os.path.join(mutants_dir,mutant_name)
-        flag = True
+        print("\n\n\n\n",mutant)
         for curr_cluster_dir in os.listdir(cluster_dir):
-            print("Cluster : ",curr_cluster_dir)
+            print("\n\nCluster : ",curr_cluster_dir)
             curr_sample = get_sample_from_cluster(os.path.join(cluster_dir,curr_cluster_dir))
-            
-            signal.signal(signal.SIGALRM, signal_handler)
-            signal.alarm(1)   # Ten seconds
-            try:
-                if(run_test_cases(mutant,curr_sample,curr_cluster_dir) == False):
-                    continue
-            except Exception as e :
-                print("Timed out!")
-            finally:
-                signal.alarm(0)
-            
-            
-            testcases = klee_check_equivalence(mutant,curr_sample)
-           
-            if testcases== None or len(testcases) == 0:
+            flag = True
+        
+            kleeResponse =  Klee(klee_flags=" -max-time=5s   -exit-on-error  ").check_equivalence(mutant,curr_sample)
+            print(kleeResponse)
+            if kleeResponse == KleeResponses.EQUIVALENT:
                 print(bcolors.BOLD+bcolors.OKGREEN+"Mutant {} equivalent to cluster {}".format(mutant,curr_cluster_dir)+bcolors.ENDC) 
                 result[mutant] = curr_cluster_dir
                 flag = False
                 break    
-            #else:
-                # print("Equivalance check failed"+bcolors.ENDC)
-                # push_testcases(testcases)  #Update global testcases file
 
         if flag:
-                print("Mutant Killed")
-                result[mutant] = "Mutant Killed"
-    print(result)
+            print("Mutant Killed")
+            result[mutant] = "Mutant Killed"      
+        print(result)   
 
 
 def create_clusters():
@@ -110,6 +123,7 @@ def create_clusters():
         os.mkdir(output_dir)
     
     solutions= [f for f in os.listdir(solutions_dir) if f.endswith('.c')]
+    solutions.sort()
     
     if len(solutions) == 0:
         print(bcolors.WARNING+"No C program found in solutions directory"+bcolors.ENDC)
@@ -132,8 +146,8 @@ def create_clusters():
     print("\n====================================================================\n")
 
     
-    #myKlee = Klee(klee_flags="-max-time=2s")  #klee runner init
-    myCbmc = Cbmc(cbmc_flags=" --unwind 5") # cbmc runner init
+    myKlee = Klee(klee_flags=" -max-time=10s ")  #klee runner init
+    myCbmc = Cbmc(timeout=None, cbmc_flags=" --unwind 6 -z3 --unwinding-assertions")                                                                        
     myTestCasesUtil = testcases_util() # testcase runner init
 
     cnt = 0
@@ -153,28 +167,36 @@ def create_clusters():
 
         for cluster in os.listdir(cluster_dir):
             
+           
             print(bcolors.OKCYAN+"\n\t"+cluster+"\n "+bcolors.ENDC)
             current_cluster_dir = cluster_dir+"/"+cluster
             clustered_solution = get_sample_from_cluster(current_cluster_dir)
+            
+            tc_start = datetime.now()
+            testcaseResponse =  myTestCasesUtil.check_equivalence(solution_path,clustered_solution)
+            tc_end = datetime.now()
+            if testcaseResponse == False:    
+                print("Testcases Check failed")
+                logTime(solution,cluster,os.path.basename(clustered_solution),(tc_end-tc_start).total_seconds(),0,0)
+                continue
+          
+            # Then Running klee engine
+            kleeResponse = myKlee.check_equivalence(solution1_path=solution_path,solution2_path=clustered_solution)
+            print(kleeResponse)
 
-
-            # if myTestCasesUtil.check_equivalance(solution_path,clustered_solution) == False:
-            #     print("Testcases Check failed")
-            #     continue
+            klee_end = datetime.now()
             
-            # # Then Running klee engine
-            # kleeResponse = myKlee.check_equivalence(solution1_path=solution_path,solution2_path=clustered_solution)
-            
-            # if(kleeResponse == KleeResponses.NOT_EQUIVALENT):
-            #     print("Klee check failed")
-            #     continue
-            
-            # elif kleeResponse == KleeResponses.TIME_LIMIT_EXCEEDED:
-            #     print("Klee check inconclusive... performing cbmc...")
-            #     cnt +=1
-            ##runnning cbmc engine
+            if kleeResponse == KleeResponses.NOT_EQUIVALENT : #or kleeResponse == KleeResponses.TIME_LIMIT_EXCEEDED:
+                logTime(solution,cluster,os.path.basename(clustered_solution),(tc_end-tc_start).total_seconds(),(klee_end-tc_end).total_seconds(),0)
+                print("Klee check failed")
+                continue
+        
             cbmcResponse = myCbmc.check_equivalence(solution1_path=solution_path,solution2_path=clustered_solution)
-            if(cbmcResponse == CbmcResponses.FAILED):
+            
+            cbmc_end = datetime.now()
+            logTime(solution,cluster,os.path.basename(clustered_solution),(tc_end-tc_start).total_seconds(),(klee_end-tc_end).total_seconds(),(cbmc_end-klee_end).total_seconds())
+
+            if(cbmcResponse != CbmcResponses.SUCCESS):    
                 print("Cbmc check failed")
                 cnt+=1
                 continue
@@ -196,9 +218,10 @@ def create_clusters():
 
     tend = datetime.now()
     c = tend-tstart
+    print("cnt : ",cnt)
     print("\n Number of Solutions : "+str(len(solutions))+"\n")
     print("\n Time Taken : "+str(c.seconds)+"\n")
-    os.system('cd {} && find . -type f | cut -d "/" -f 2 | sort | uniq -c | sort -n'.format(cluster_dir))
+    os.system('cd {} && find . -type f | cut -d/ -f2 | sort | uniq -c  '.format(cluster_dir))
                 
        
 def get_sample_from_cluster(current_cluster_dir):
@@ -210,7 +233,7 @@ def get_sample_from_cluster(current_cluster_dir):
             break
     
     all_files = os.listdir(current_cluster_dir)
-    file_in_cluster = all_files[randint(0,len(all_files)-1)]
+    file_in_cluster = all_files[random.randint(0,len(all_files)-1)]
     print("\nSample taken : ",file_in_cluster,"\n")
     
     
@@ -221,6 +244,23 @@ def has_main_func(soln_path):
     soln = open(soln_path,"r").read()
     return soln.find("main") !=-1
 
+def logTime(sol,cluster,cluster_rep, tc_time,klee_time,cbmc_time):
+    logs_filename = 'logs/digitsum-testcases(booted)-klee(unsound)-cbmc.csv'
+    try:
+        df= pd.read_csv(logs_filename)
+    except:
+        df = pd.DataFrame()
+    
+    dict = {}
+    dict['solution'] = sol
+    dict['cluster'] = cluster
+    dict['cluster_rep'] = cluster_rep
+    dict['testcases_time'] =  tc_time
+    dict['klee_time'] = klee_time
+    dict['cbmc_time'] = cbmc_time
+    df = df.append(pd.DataFrame(dict,columns=dict.keys(),index=[0]))
+    print(df)
+    df.to_csv(logs_filename,index=False)    
 
 
 def has_error(solution_path):
@@ -244,7 +284,12 @@ def has_error(solution_path):
         return True
 
 if __name__ == '__main__':
-    if (len(sys.argv) > 1 and sys.argv[1] == "map_mutants"):
-        map_mutants()
+    if (len(sys.argv) > 2 and sys.argv[1] == "map_mutants"):
+        map_mutants(sys.argv[2])
     else:
         create_clusters()
+
+
+
+
+#d74631a0-350a-11e5-b84e-0242ac110011_2015-08-19_10_20_18.c

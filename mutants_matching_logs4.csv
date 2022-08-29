@@ -1,0 +1,10 @@
+,cluster14,cluster1,cluster9,cluster7,cluster12,cluster15,cluster4,cluster16,cluster3,cluster10,cluster13,cluster8,cluster6,cluster2,cluster11,cluster5
+cluster9,,12.mutant.77.c 39.c,,,,,,,,,,,,,,
+cluster7,,14.mutant.75.c 28.c,,,,,,,,,,,,,,
+cluster15,,14.mutant.75.c 49.c,,,,,,,,,,,,,,
+cluster4,,5.mutant.17.c 21.c,,,,,,,,,,,,,,
+cluster16,,34.mutant.59.c 6.c,,,,,,,,,,,,,,
+cluster3,,25.mutant.143.c 9.c,,,,,,,,,,,,,,
+cluster8,,23.mutant.65.c 31.c,,,,,,,,,,,,,,
+cluster11,,12.mutant.77.c 44.c,,,,,,,,,,,,,,
+cluster1,,,12.mutant.77.c 39.c,14.mutant.75.c 28.c,,14.mutant.75.c 49.c,5.mutant.17.c 21.c,34.mutant.59.c 6.c,25.mutant.143.c 9.c,,,23.mutant.65.c 31.c,,,12.mutant.77.c 44.c,

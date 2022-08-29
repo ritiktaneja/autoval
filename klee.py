@@ -53,9 +53,6 @@ class Klee:
     '''
     @check_sys_dependencies
     def __run(self,filename,output_dir = ""):
-        
-        
-
         program_path = os.path.abspath(filename)
         try:
           
@@ -75,7 +72,7 @@ class Klee:
             
             output = open("temp.txt","r").read()
             if len(re.findall(r": error:",output)) != 0 or not isfile("temp.bc"):
-                raise KleeError("Program Compilation Failed")
+                raise KleeError("Program Compilation Failed : ",output)
 
             os.system("rm temp.txt")
             print("\n ------ Running Klee Engine------\n\n ")
@@ -122,6 +119,16 @@ class Klee:
                         testcase['objects'] = self.__get_objects_from_file_path(tf_filename)
                         testcase['test_case_type'] = ext
                         result.append(testcase)
+            
+            if (len(result) == 0):
+                output = open("warnings.txt","r").read()
+                if len(re.findall(r"KLEE: ERROR:",output)) != 0:
+                    print("here")
+                    testcase = dict()
+                    testcase['objects'] = output
+                    testcase['test_case_type'] = "warnings.txt"
+                    result.append(testcase)
+                    
             return result
         except KleeError as e:
             print("err",e)
@@ -218,7 +225,7 @@ class Klee:
                 if value.isnumeric():
                     main_method = main_method + type + " " + name + " = " + value + ";\n\n\t"
                 else:
-                    main_method = main_method + type + " " + name + ";\n\tklee_make_symbolic(&" + name + ",sizeof(" + name + "),\"" + name + "\");\n\tklee_assume("+ name+ " > 0); \n\t"
+                    main_method = main_method + type + " " + name + ";\n\tklee_make_symbolic(&" + name + ",sizeof(" + name + "),\"" + name + "\");\n\tklee_assume("+ name+ " > 0); \n\tklee_assume("+ name+ " < 65536); \n\t"
                     # main_method = main_method + type + " " + name + ";\n\tklee_make_symbolic(&" + name + ",sizeof(" + name + "),\"" + name + "\");\n\n\t"
                 
                 parameters = parameters + "," + name
@@ -242,15 +249,26 @@ class Klee:
         response = self.__run(filename=filename,output_dir = self.output_dir)
         result = self.get_result_object(self.output_dir,err_only=True) 
         if (len(result)>0):      
-            testcases_util().push_testcases(testcases=result)
+            #testcases_util().push_testcases(testcases=result)
             return KleeResponses.NOT_EQUIVALENT
-
+    
+        if response == KleeResponses.SUCCESS:
+            return KleeResponses.EQUIVALENT
+        
         return response
 
 
 
 
-        
+if __name__ == "__main__":
+    if(len(sys.argv) < 3):
+        print("Invalid format")
+        sys.exit()
+    myKlee = Klee(klee_flags="-max-time=10s -exit-on-error")
+    solution1_path = sys.argv[1]
+    solution2_path = sys.argv[2]
+    kleeResponse = myKlee.check_equivalence(solution1_path,solution2_path)
+    print(kleeResponse)
 # ## Sample exection
 # myKlee = Klee(klee_flags="-max-time=5s -exit-on-error")
 

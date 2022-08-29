@@ -1,0 +1,153 @@
+CBMC version 5.6 64-bit x86_64 linux
+Parsing /home/klee/data/temp-cbmc.c
+Converting
+Type-checking temp-cbmc
+Generating GOTO Program
+Adding CPROVER library (x86_64)
+Removal of function pointers and virtual functions
+Partial Inlining
+Generic Property Instrumentation
+Starting Bounded Model Checking
+Unwinding loop digitSum1.0 iteration 1 (7 max) file /home/klee/data/temp-cbmc.c line 18 function digitSum1 thread 0
+Unwinding loop digitSum1.0 iteration 2 (7 max) file /home/klee/data/temp-cbmc.c line 18 function digitSum1 thread 0
+Unwinding loop digitSum1.0 iteration 3 (7 max) file /home/klee/data/temp-cbmc.c line 18 function digitSum1 thread 0
+Unwinding loop digitSum1.0 iteration 4 (7 max) file /home/klee/data/temp-cbmc.c line 18 function digitSum1 thread 0
+Unwinding loop digitSum1.0 iteration 5 (7 max) file /home/klee/data/temp-cbmc.c line 18 function digitSum1 thread 0
+Unwinding loop digitSum1.0 iteration 6 (7 max) file /home/klee/data/temp-cbmc.c line 18 function digitSum1 thread 0
+Not unwinding loop digitSum1.0 iteration 7 (7 max) file /home/klee/data/temp-cbmc.c line 18 function digitSum1 thread 0
+Unwinding recursion digitSum1 iteration 1 (7 max)
+Unwinding loop digitSum1.0 iteration 1 (7 max) file /home/klee/data/temp-cbmc.c line 18 function digitSum1 thread 0
+Unwinding loop digitSum1.0 iteration 2 (7 max) file /home/klee/data/temp-cbmc.c line 18 function digitSum1 thread 0
+Unwinding loop digitSum1.0 iteration 3 (7 max) file /home/klee/data/temp-cbmc.c line 18 function digitSum1 thread 0
+Unwinding loop digitSum1.0 iteration 4 (7 max) file /home/klee/data/temp-cbmc.c line 18 function digitSum1 thread 0
+Unwinding loop digitSum1.0 iteration 5 (7 max) file /home/klee/data/temp-cbmc.c line 18 function digitSum1 thread 0
+Unwinding loop digitSum1.0 iteration 6 (7 max) file /home/klee/data/temp-cbmc.c line 18 function digitSum1 thread 0
+Not unwinding loop digitSum1.0 iteration 7 (7 max) file /home/klee/data/temp-cbmc.c line 18 function digitSum1 thread 0
+Unwinding recursion digitSum1 iteration 2 (7 max)
+Unwinding loop digitSum1.0 iteration 1 (7 max) file /home/klee/data/temp-cbmc.c line 18 function digitSum1 thread 0
+Unwinding loop digitSum1.0 iteration 2 (7 max) file /home/klee/data/temp-cbmc.c line 18 function digitSum1 thread 0
+Unwinding loop digitSum1.0 iteration 3 (7 max) file /home/klee/data/temp-cbmc.c line 18 function digitSum1 thread 0
+Unwinding loop digitSum1.0 iteration 4 (7 max) file /home/klee/data/temp-cbmc.c line 18 function digitSum1 thread 0
+Unwinding loop digitSum1.0 iteration 5 (7 max) file /home/klee/data/temp-cbmc.c line 18 function digitSum1 thread 0
+Unwinding loop digitSum1.0 iteration 6 (7 max) file /home/klee/data/temp-cbmc.c line 18 function digitSum1 thread 0
+Not unwinding loop digitSum1.0 iteration 7 (7 max) file /home/klee/data/temp-cbmc.c line 18 function digitSum1 thread 0
+Unwinding recursion digitSum1 iteration 3 (7 max)
+Unwinding loop digitSum1.0 iteration 1 (7 max) file /home/klee/data/temp-cbmc.c line 18 function digitSum1 thread 0
+Unwinding loop digitSum1.0 iteration 2 (7 max) file /home/klee/data/temp-cbmc.c line 18 function digitSum1 thread 0
+Unwinding loop digitSum1.0 iteration 3 (7 max) file /home/klee/data/temp-cbmc.c line 18 function digitSum1 thread 0
+Unwinding loop digitSum1.0 iteration 4 (7 max) file /home/klee/data/temp-cbmc.c line 18 function digitSum1 thread 0
+Unwinding loop digitSum1.0 iteration 5 (7 max) file /home/klee/data/temp-cbmc.c line 18 function digitSum1 thread 0
+Unwinding loop digitSum1.0 iteration 6 (7 max) file /home/klee/data/temp-cbmc.c line 18 function digitSum1 thread 0
+Not unwinding loop digitSum1.0 iteration 7 (7 max) file /home/klee/data/temp-cbmc.c line 18 function digitSum1 thread 0
+Unwinding recursion digitSum1 iteration 4 (7 max)
+Unwinding loop digitSum1.0 iteration 1 (7 max) file /home/klee/data/temp-cbmc.c line 18 function digitSum1 thread 0
+Unwinding loop digitSum1.0 iteration 2 (7 max) file /home/klee/data/temp-cbmc.c line 18 function digitSum1 thread 0
+Unwinding loop digitSum1.0 iteration 3 (7 max) file /home/klee/data/temp-cbmc.c line 18 function digitSum1 thread 0
+Unwinding loop digitSum1.0 iteration 4 (7 max) file /home/klee/data/temp-cbmc.c line 18 function digitSum1 thread 0
+Unwinding loop digitSum1.0 iteration 5 (7 max) file /home/klee/data/temp-cbmc.c line 18 function digitSum1 thread 0
+Unwinding loop digitSum1.0 iteration 6 (7 max) file /home/klee/data/temp-cbmc.c line 18 function digitSum1 thread 0
+Not unwinding loop digitSum1.0 iteration 7 (7 max) file /home/klee/data/temp-cbmc.c line 18 function digitSum1 thread 0
+Unwinding recursion digitSum1 iteration 5 (7 max)
+Unwinding loop digitSum1.0 iteration 1 (7 max) file /home/klee/data/temp-cbmc.c line 18 function digitSum1 thread 0
+Unwinding loop digitSum1.0 iteration 2 (7 max) file /home/klee/data/temp-cbmc.c line 18 function digitSum1 thread 0
+Unwinding loop digitSum1.0 iteration 3 (7 max) file /home/klee/data/temp-cbmc.c line 18 function digitSum1 thread 0
+Unwinding loop digitSum1.0 iteration 4 (7 max) file /home/klee/data/temp-cbmc.c line 18 function digitSum1 thread 0
+Unwinding loop digitSum1.0 iteration 5 (7 max) file /home/klee/data/temp-cbmc.c line 18 function digitSum1 thread 0
+Unwinding loop digitSum1.0 iteration 6 (7 max) file /home/klee/data/temp-cbmc.c line 18 function digitSum1 thread 0
+Not unwinding loop digitSum1.0 iteration 7 (7 max) file /home/klee/data/temp-cbmc.c line 18 function digitSum1 thread 0
+Unwinding recursion digitSum1 iteration 6 (7 max)
+Unwinding loop digitSum1.0 iteration 1 (7 max) file /home/klee/data/temp-cbmc.c line 18 function digitSum1 thread 0
+Unwinding loop digitSum1.0 iteration 2 (7 max) file /home/klee/data/temp-cbmc.c line 18 function digitSum1 thread 0
+Unwinding loop digitSum1.0 iteration 3 (7 max) file /home/klee/data/temp-cbmc.c line 18 function digitSum1 thread 0
+Unwinding loop digitSum1.0 iteration 4 (7 max) file /home/klee/data/temp-cbmc.c line 18 function digitSum1 thread 0
+Unwinding loop digitSum1.0 iteration 5 (7 max) file /home/klee/data/temp-cbmc.c line 18 function digitSum1 thread 0
+Unwinding loop digitSum1.0 iteration 6 (7 max) file /home/klee/data/temp-cbmc.c line 18 function digitSum1 thread 0
+Not unwinding loop digitSum1.0 iteration 7 (7 max) file /home/klee/data/temp-cbmc.c line 18 function digitSum1 thread 0
+Unwinding recursion digitSum1 iteration 7 (7 max)
+Unwinding loop digitSum1.0 iteration 1 (7 max) file /home/klee/data/temp-cbmc.c line 18 function digitSum1 thread 0
+Unwinding loop digitSum1.0 iteration 2 (7 max) file /home/klee/data/temp-cbmc.c line 18 function digitSum1 thread 0
+Unwinding loop digitSum1.0 iteration 3 (7 max) file /home/klee/data/temp-cbmc.c line 18 function digitSum1 thread 0
+Unwinding loop digitSum1.0 iteration 4 (7 max) file /home/klee/data/temp-cbmc.c line 18 function digitSum1 thread 0
+Unwinding loop digitSum1.0 iteration 5 (7 max) file /home/klee/data/temp-cbmc.c line 18 function digitSum1 thread 0
+Unwinding loop digitSum1.0 iteration 6 (7 max) file /home/klee/data/temp-cbmc.c line 18 function digitSum1 thread 0
+Not unwinding loop digitSum1.0 iteration 7 (7 max) file /home/klee/data/temp-cbmc.c line 18 function digitSum1 thread 0
+Not unwinding recursion digitSum1 iteration 8 (7 max)
+Unwinding loop digitSum2.0 iteration 1 (7 max) file /home/klee/data/temp-cbmc.c line 37 function digitSum2 thread 0
+Unwinding loop digitSum2.0 iteration 2 (7 max) file /home/klee/data/temp-cbmc.c line 37 function digitSum2 thread 0
+Unwinding loop digitSum2.0 iteration 3 (7 max) file /home/klee/data/temp-cbmc.c line 37 function digitSum2 thread 0
+Unwinding loop digitSum2.0 iteration 4 (7 max) file /home/klee/data/temp-cbmc.c line 37 function digitSum2 thread 0
+Unwinding loop digitSum2.0 iteration 5 (7 max) file /home/klee/data/temp-cbmc.c line 37 function digitSum2 thread 0
+Unwinding loop digitSum2.0 iteration 6 (7 max) file /home/klee/data/temp-cbmc.c line 37 function digitSum2 thread 0
+Not unwinding loop digitSum2.0 iteration 7 (7 max) file /home/klee/data/temp-cbmc.c line 37 function digitSum2 thread 0
+Unwinding recursion digitSum2 iteration 1 (7 max)
+Unwinding loop digitSum2.0 iteration 1 (7 max) file /home/klee/data/temp-cbmc.c line 37 function digitSum2 thread 0
+Unwinding loop digitSum2.0 iteration 2 (7 max) file /home/klee/data/temp-cbmc.c line 37 function digitSum2 thread 0
+Unwinding loop digitSum2.0 iteration 3 (7 max) file /home/klee/data/temp-cbmc.c line 37 function digitSum2 thread 0
+Unwinding loop digitSum2.0 iteration 4 (7 max) file /home/klee/data/temp-cbmc.c line 37 function digitSum2 thread 0
+Unwinding loop digitSum2.0 iteration 5 (7 max) file /home/klee/data/temp-cbmc.c line 37 function digitSum2 thread 0
+Unwinding loop digitSum2.0 iteration 6 (7 max) file /home/klee/data/temp-cbmc.c line 37 function digitSum2 thread 0
+Not unwinding loop digitSum2.0 iteration 7 (7 max) file /home/klee/data/temp-cbmc.c line 37 function digitSum2 thread 0
+Unwinding recursion digitSum2 iteration 2 (7 max)
+Unwinding loop digitSum2.0 iteration 1 (7 max) file /home/klee/data/temp-cbmc.c line 37 function digitSum2 thread 0
+Unwinding loop digitSum2.0 iteration 2 (7 max) file /home/klee/data/temp-cbmc.c line 37 function digitSum2 thread 0
+Unwinding loop digitSum2.0 iteration 3 (7 max) file /home/klee/data/temp-cbmc.c line 37 function digitSum2 thread 0
+Unwinding loop digitSum2.0 iteration 4 (7 max) file /home/klee/data/temp-cbmc.c line 37 function digitSum2 thread 0
+Unwinding loop digitSum2.0 iteration 5 (7 max) file /home/klee/data/temp-cbmc.c line 37 function digitSum2 thread 0
+Unwinding loop digitSum2.0 iteration 6 (7 max) file /home/klee/data/temp-cbmc.c line 37 function digitSum2 thread 0
+Not unwinding loop digitSum2.0 iteration 7 (7 max) file /home/klee/data/temp-cbmc.c line 37 function digitSum2 thread 0
+Unwinding recursion digitSum2 iteration 3 (7 max)
+Unwinding loop digitSum2.0 iteration 1 (7 max) file /home/klee/data/temp-cbmc.c line 37 function digitSum2 thread 0
+Unwinding loop digitSum2.0 iteration 2 (7 max) file /home/klee/data/temp-cbmc.c line 37 function digitSum2 thread 0
+Unwinding loop digitSum2.0 iteration 3 (7 max) file /home/klee/data/temp-cbmc.c line 37 function digitSum2 thread 0
+Unwinding loop digitSum2.0 iteration 4 (7 max) file /home/klee/data/temp-cbmc.c line 37 function digitSum2 thread 0
+Unwinding loop digitSum2.0 iteration 5 (7 max) file /home/klee/data/temp-cbmc.c line 37 function digitSum2 thread 0
+Unwinding loop digitSum2.0 iteration 6 (7 max) file /home/klee/data/temp-cbmc.c line 37 function digitSum2 thread 0
+Not unwinding loop digitSum2.0 iteration 7 (7 max) file /home/klee/data/temp-cbmc.c line 37 function digitSum2 thread 0
+Unwinding recursion digitSum2 iteration 4 (7 max)
+Unwinding loop digitSum2.0 iteration 1 (7 max) file /home/klee/data/temp-cbmc.c line 37 function digitSum2 thread 0
+Unwinding loop digitSum2.0 iteration 2 (7 max) file /home/klee/data/temp-cbmc.c line 37 function digitSum2 thread 0
+Unwinding loop digitSum2.0 iteration 3 (7 max) file /home/klee/data/temp-cbmc.c line 37 function digitSum2 thread 0
+Unwinding loop digitSum2.0 iteration 4 (7 max) file /home/klee/data/temp-cbmc.c line 37 function digitSum2 thread 0
+Unwinding loop digitSum2.0 iteration 5 (7 max) file /home/klee/data/temp-cbmc.c line 37 function digitSum2 thread 0
+Unwinding loop digitSum2.0 iteration 6 (7 max) file /home/klee/data/temp-cbmc.c line 37 function digitSum2 thread 0
+Not unwinding loop digitSum2.0 iteration 7 (7 max) file /home/klee/data/temp-cbmc.c line 37 function digitSum2 thread 0
+Unwinding recursion digitSum2 iteration 5 (7 max)
+Unwinding loop digitSum2.0 iteration 1 (7 max) file /home/klee/data/temp-cbmc.c line 37 function digitSum2 thread 0
+Unwinding loop digitSum2.0 iteration 2 (7 max) file /home/klee/data/temp-cbmc.c line 37 function digitSum2 thread 0
+Unwinding loop digitSum2.0 iteration 3 (7 max) file /home/klee/data/temp-cbmc.c line 37 function digitSum2 thread 0
+Unwinding loop digitSum2.0 iteration 4 (7 max) file /home/klee/data/temp-cbmc.c line 37 function digitSum2 thread 0
+Unwinding loop digitSum2.0 iteration 5 (7 max) file /home/klee/data/temp-cbmc.c line 37 function digitSum2 thread 0
+Unwinding loop digitSum2.0 iteration 6 (7 max) file /home/klee/data/temp-cbmc.c line 37 function digitSum2 thread 0
+Not unwinding loop digitSum2.0 iteration 7 (7 max) file /home/klee/data/temp-cbmc.c line 37 function digitSum2 thread 0
+Unwinding recursion digitSum2 iteration 6 (7 max)
+Unwinding loop digitSum2.0 iteration 1 (7 max) file /home/klee/data/temp-cbmc.c line 37 function digitSum2 thread 0
+Unwinding loop digitSum2.0 iteration 2 (7 max) file /home/klee/data/temp-cbmc.c line 37 function digitSum2 thread 0
+Unwinding loop digitSum2.0 iteration 3 (7 max) file /home/klee/data/temp-cbmc.c line 37 function digitSum2 thread 0
+Unwinding loop digitSum2.0 iteration 4 (7 max) file /home/klee/data/temp-cbmc.c line 37 function digitSum2 thread 0
+Unwinding loop digitSum2.0 iteration 5 (7 max) file /home/klee/data/temp-cbmc.c line 37 function digitSum2 thread 0
+Unwinding loop digitSum2.0 iteration 6 (7 max) file /home/klee/data/temp-cbmc.c line 37 function digitSum2 thread 0
+Not unwinding loop digitSum2.0 iteration 7 (7 max) file /home/klee/data/temp-cbmc.c line 37 function digitSum2 thread 0
+Unwinding recursion digitSum2 iteration 7 (7 max)
+Unwinding loop digitSum2.0 iteration 1 (7 max) file /home/klee/data/temp-cbmc.c line 37 function digitSum2 thread 0
+Unwinding loop digitSum2.0 iteration 2 (7 max) file /home/klee/data/temp-cbmc.c line 37 function digitSum2 thread 0
+Unwinding loop digitSum2.0 iteration 3 (7 max) file /home/klee/data/temp-cbmc.c line 37 function digitSum2 thread 0
+Unwinding loop digitSum2.0 iteration 4 (7 max) file /home/klee/data/temp-cbmc.c line 37 function digitSum2 thread 0
+Unwinding loop digitSum2.0 iteration 5 (7 max) file /home/klee/data/temp-cbmc.c line 37 function digitSum2 thread 0
+Unwinding loop digitSum2.0 iteration 6 (7 max) file /home/klee/data/temp-cbmc.c line 37 function digitSum2 thread 0
+Not unwinding loop digitSum2.0 iteration 7 (7 max) file /home/klee/data/temp-cbmc.c line 37 function digitSum2 thread 0
+Not unwinding recursion digitSum2 iteration 8 (7 max)
+size of program expression: 1296 steps
+simple slicing removed 7 assignments
+Generated 19 VCC(s), 19 remaining after simplification
+Passing problem to SMT2 QF_AUFBV using Z3
+converting SSA
+Running SMT2 QF_AUFBV using Z3
+Runtime decision procedure: 9.881s
+
+** Results:
+[main.assertion.1] assertion return_value_1 == return_value_2: SUCCESS
+[digitSum1.unwind.0] unwinding assertion loop 0: SUCCESS
+[digitSum2.unwind.0] unwinding assertion loop 0: SUCCESS
+
+** 0 of 3 failed (1 iteration)
+VERIFICATION SUCCESSFUL

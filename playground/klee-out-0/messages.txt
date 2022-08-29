@@ -1,3 +1,0 @@
-KLEE: Using STP solver backend
-KLEE: ERROR: (location information missing) external call with symbolic argument: digitSum
-KLEE: NOTE: now ignoring this error at this location

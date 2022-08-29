@@ -27,7 +27,6 @@ class c:
     def run_func(self,filepath,entry_point,*arg_vals):
         
         try:
-            
             lib = CDLL(filepath)    
             args=[]
 
@@ -35,13 +34,14 @@ class c:
                 args.append(c_int64(x))
             
             func_name = entry_point
-            lib[func_name].argtypes=[ctypes.c_int]
+            lib[func_name].argtypes=[ctypes.c_int,ctypes.c_int,ctypes.c_int,ctypes.c_int]
             output = lib[func_name](*args)
             print("\t output of",os.path.basename(filepath),"[",arg_vals,"] is ",output)
             return {"output":output,"error":False}
         except Exception as e:
-            print("Run Time Error",e)
-            return {"error" : True,"output":""}
+            #raise Exception(e)
+            print(e)
+            return {"error" : True,"output":e}
 
 
 
@@ -63,7 +63,7 @@ class c:
             os.system("cc -fPIC -shared -o "+name+" "+filepath)
             return os.path.abspath(name)
         except Exception as e:
-            print("err",e)
+            raise Exception(e)
         finally:
             os.chdir(cwd)
 
@@ -116,33 +116,18 @@ class c:
     #     finally:
     #         os.chdir(cwd)
 
-if __name__ == "__main__":
-
-    curr_dir = os.path.join(os.getcwd(),"cluster2","cluster1")
-
-    ans = [-1 for i in range(0,100)]
-    not_equivalent = []
-    for solution in os.listdir(curr_dir):
-        print("\n\n Solution :  ",solution,"\n\n")    
-        solution_path = os.path.join(curr_dir,solution)
-        so_file = c.build_so(solution_path)
-        for i in range(1,100):
-            res = c.run_func(so_file,i)
-            if(ans[i] == -1):
-                ans[i] = int(res['output'])
-            elif (ans[i] != int(res['output'])):
-                not_equivalent.append(solution)
-
-    print(not_equivalent)
 
 # 6018.c 19309.c
        
 
 
     
-
-   
-
+if __name__ == "__main__" :
+    solutions_dir = general.solutions_dir
+    for solution in os.listdir(solutions_dir):
+        path = os.path.join(solutions_dir, solution)
+        os.system("gcc -Wall "+path)
+        
 
 
     

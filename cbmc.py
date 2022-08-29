@@ -1,3 +1,5 @@
+import multiprocessing
+import signal as signal
 import string
 import struct
 import subprocess
@@ -5,6 +7,7 @@ import enum
 from genericpath import isdir, isfile
 import os,re
 import sys
+from time import time
 from testcases_util import testcases_util
 import util_tools as ut
 from config import general 
@@ -26,12 +29,13 @@ class Cbmc:
         Initlialize Cbmc class object with the flags you want to set while calling cbmc functions. 
         cbmc should be a string and will be appended as it is during cbmc system call.
     '''
-    def __init__(self,cbmc_flags=""):
+    def __init__(self,timeout,cbmc_flags=""):
         # TODO sanitize cbmc_flags input
         try:
             self.function_name = general.solution_function_name
             self.function_type = general.solution_function_type
             self.output_dir = os.path.abspath(general.output_dir)
+            self.timeout = timeout
             self.filename = "temp.c"
             #self.scalar_args_fp = os.path.abspath("./config/scalar_args.txt")
             self.cbmc_flags = cbmc_flags
@@ -70,24 +74,36 @@ class Cbmc:
                 raise CbmcError("Program File Not Found")
            
             print("\n ------ Running CBMC Engine------\n\n ")
-            os.system("rm temp.txt")    
-            cmd = "cbmc "+self.cbmc_flags+" "+program_path+"> temp.txt"
+           
+            os.system("rm temp-cbmc.txt")    
+            cmd = "cbmc "+self.cbmc_flags+"  "+program_path+" > temp-cbmc.txt"
             print(cmd)
             
-            os.system(cmd)
-           
-            if not isfile("temp.txt"):
+            def sys_call(cmdd):
+                os.system(cmdd)
+            
+            p = multiprocessing.Process(target=sys_call,args=(cmd,))
+            p.start()
+            p.join(self.timeout)
+            if p.is_alive():
+                #p.kill()
+                p.terminate()
+                return CbmcResponses.TIME_LIMIT_EXCEEDED
+
+            if not isfile("temp-cbmc.txt"):
                 print("Unable to find txt")
-               
-            output = open("temp.txt","r").read()
             
+            output = open("temp-cbmc.txt","r").read()
             
+            print(output)
             if len(re.findall(r"FAILURE",output)) != 0:
                 return CbmcResponses.FAILED
             if len(re.findall(r"SUCCESS",output)) != 0:
                 return CbmcResponses.SUCCESS
+                
+          
             
-            print("here")
+            print("CBMC Exiting")
             sys.exit(0)
             return CbmcResponses.UNDEFINED
       
@@ -141,7 +157,7 @@ class Cbmc:
                 if value.isnumeric():
                     main_method = main_method + type + " " + name + " = " + value + ";\n\n\t"
                 else: 
-                    main_method+= type+" "+ name + " = "+"nondet_"+type+"();\n\n\t __CPROVER_assume("+name+">0);\n\t" 
+                    main_method+= type+" "+ name + " = "+"nondet_"+type+"();\n\n\t __CPROVER_assume("+name+">0); \n\t __CPROVER_assume("+name+"<65536);\n\t" 
 
                   
                 
@@ -160,7 +176,7 @@ class Cbmc:
     
 
     def check_equivalence(self,solution1_path,solution2_path):
-        filename = "temp.c"
+        filename = "temp-cbmc.c"
         self.__build_program(solution1_path=solution1_path,solution2_path=solution2_path,filename=filename)
         response  = self.__run(filename=filename,output_dir = self.output_dir)
         return response
@@ -170,6 +186,16 @@ class Cbmc:
 
         
 
+
+if __name__ == "__main__":
+    if(len(sys.argv) < 3):
+        print("Invalid format")
+        sys.exit()
+    myCbmc = Cbmc(timeout=None,cbmc_flags="--unwind 7 -z3 --unwinding-assertions")
+    solution1_path = os.path.abspath(sys.argv[1])
+    solution2_path = os.path.abspath(sys.argv[2])
+    cbmcResponse = myCbmc.check_equivalence(solution1_path,solution2_path)
+    print(cbmcResponse)
 
 
     

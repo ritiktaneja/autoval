@@ -1,5 +1,5 @@
 from genericpath import isfile
-from random import randint
+import random
 import re
 import string
 import sys
@@ -10,6 +10,8 @@ from ctypes import CDLL
 import ctypes
 import os
 from c import c
+import multiprocessing
+import time
 
 class testcases_util:
     def __init__(self) -> None:
@@ -146,8 +148,7 @@ class testcases_util:
         finally:
             os.chdir(cwd)
 
-    def check_equivalance(self,solution1_path,solution2_path):
-        
+    def check_equivalence(self,solution1_path,solution2_path):
         try:
             df = pd.read_csv(self.testcases_file)
         except:
@@ -158,12 +159,26 @@ class testcases_util:
         #prog = self.build_prog(solution1_path,solution2_path)
         #so_file = c_obj.build_so(prog)
         so1_file = c_obj.build_so(solution1_path)
+        print(so1_file)
         so2_file = c_obj.build_so(solution2_path)
-        
+        print(so2_file)
         arg_list = ut.get_scalar_argument_list()
+        # p = multiprocessing.Process(target=mytestcasesUtil.check_equivalence,args=(solution2_path,solution1_path))
+        # p.start()
 
+        # # Wait for 10 seconds or until process finishes
+        # p.join(20)
 
-        for idx,data in df.iterrows():
+        # # If thread is still active
+        # if p.is_alive():
+        #     print ("running... let's kill it...")
+
+        #     # Terminate - may not work if process is stuck for good
+        #     p.terminate()
+        #     # OR Kill - will work for sure, no chance for process to finish nicely however
+        #     # p.kill()
+        #     p.join()
+        for idx,data in df.iterrows():   
             args = []     
             for idx in arg_list:
                 var_type,var_name,var_val = arg_list[idx]
@@ -175,26 +190,37 @@ class testcases_util:
             if(output1 != output2):
                 print("Not equivalent")
                 return False
-
         return True
 
-        pass
-
-
 if __name__ == '__main__':
+    
+    if(len(sys.argv)>2):
+        mytestcasesUtil = testcases_util()
+        solution1_path = sys.argv[1]
+        solution2_path = sys.argv[2]
+  
+        response = mytestcasesUtil.check_equivalence(solution1_path,solution2_path)
+        print(response)
+    else:
         testcases_file = "/home/rt/autoval/klee-vol/testcases.csv"
-        try:
-            df = pd.read_csv(testcases_file)
-        except:
-            df = pd.DataFrame()
+        # try:
+        #     df = pd.read_csv(testcases_file)
+        # except:
+        df = pd.DataFrame()
         arg_list = ut.get_scalar_argument_list()
         data=[]
         var_names = []
         
         for indx in arg_list:
             var_names.append(arg_list[indx][1])
-        for i in range(0,500):
-            data.append({'input_a':randint(0,1000)})
+        random.seed(12)
+        for i in range(0,65536):                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
+            dict = {}
+            cnt = 0
+            for var in var_names:
+                dict[var] = i#random.randint(0,65536)
+                cnt+=1
+            data.append(dict)
         print(data)
         df = df.append(pd.DataFrame(data))
         #print(data)

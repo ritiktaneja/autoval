@@ -1,0 +1,9 @@
+solution,cluster,cluster_rep,testcases_time,klee_time,cbmc_time
+10.c,cluster1,1.c,0.000789,<built-in method total_seconds of datetime.timedelta object at 0x7f1650f0cee0>,<built-in method total_seconds of datetime.timedelta object at 0x7f1650f0ceb8>
+11.c,cluster1,1.c,0.001057,<built-in method total_seconds of datetime.timedelta object at 0x7f1677fb9350>,<built-in method total_seconds of datetime.timedelta object at 0x7f1650f0cdf0>
+11.c,cluster2,10.c,0.001568,<built-in method total_seconds of datetime.timedelta object at 0x7f1650f0ce90>,<built-in method total_seconds of datetime.timedelta object at 0x7f1650f0cdf0>
+12.c,cluster1,1.c,0.01041,<built-in method total_seconds of datetime.timedelta object at 0x7f1650f0c8f0>,<built-in method total_seconds of datetime.timedelta object at 0x7f16505e2148>
+12.c,cluster3,11.c,0.0005070000000000001,<built-in method total_seconds of datetime.timedelta object at 0x7f1678823828>,<built-in method total_seconds of datetime.timedelta object at 0x7f16505e2148>
+12.c,cluster2,10.c,0.000788,<built-in method total_seconds of datetime.timedelta object at 0x7f1679ab6058>,<built-in method total_seconds of datetime.timedelta object at 0x7f16505e2148>
+13.c,cluster1,1.c,0.004173,<built-in method total_seconds of datetime.timedelta object at 0x7f1677fb9350>,<built-in method total_seconds of datetime.timedelta object at 0x7f16505e20a8>
+13.c,cluster4,12.c,0.003819,<built-in method total_seconds of datetime.timedelta object at 0x7f1650f0ce90>,<built-in method total_seconds of datetime.timedelta object at 0x7f1650f0ccb0>

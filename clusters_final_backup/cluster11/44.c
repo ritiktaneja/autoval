@@ -1,0 +1,19 @@
+#include<stdio.h>
+int digitSum(int n)
+{
+	if(n/10==0) return n;
+	else{
+		int sum =0;
+		int x = n;
+		while (x>0)
+		{
+			sum+=x%10;
+			x/=10;
+		}
+		digitSum(sum);
+	}
+}
+
+int main() {
+	printf("%d\n",digitSum(18));
+}

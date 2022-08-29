@@ -1,12 +1,10 @@
-solutions_dir = "student-solutions"
+solutions_dir = "digitSum"
 mutants_dir = "mutants"
 cluster_dir = "clusters"
 error_dir = "error"
 testcases_file = "testcases.csv"
 
 output_dir = "myoutput"
-
-
 
 
 solution_file_extension = ".c"
